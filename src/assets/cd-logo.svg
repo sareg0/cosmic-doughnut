@@ -1,0 +1,28 @@
+<svg viewBox="0 0 33 33" width="500" xmlns="http://www.w3.org/2000/svg">
+<style>
+.font-mono {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 4px;
+  color: white;
+}
+</style>
+      <path
+            class="rings"
+            fill-rule="evenodd"
+  d="
+    M 11, 20
+    a 9,9 0 1,1 18,0
+    a 9,9 0 1,1 -18,0 z
+    M 16, 20
+    a 4,4 0 1,1 10,0
+    a 4,4 0 1,1 -10,0 z
+  "
+          stroke="none"
+/>
+
+  <circle id="MyPath" cx="20" cy="20" r="10" fill="none" />
+<text>
+    <textPath href="#MyPath" class="font-mono">Cosmic Doughnut</textPath>
+  </text>
+
+</svg>
