@@ -5,14 +5,16 @@ import "html-validate/vitest";
 import ProductItem, { type Props } from "./ProductItem.vue";
 import userEvent from "@testing-library/user-event";
 
+const props: Props = {
+  id: "1234-5678-123",
+  name: "test",
+  description: "test desc",
+  image: "test-image.png",
+};
+
 describe("ProductItem", () => {
   it("should be accessible", () => {
     // render the component and check against axe
-    const props: Props = {
-      name: "test",
-      description: "test desc",
-      image: "test-image.png",
-    };
     const { container, debug } = render(ProductItem, { props });
     axe
       .run(container)
@@ -28,28 +30,22 @@ describe("ProductItem", () => {
   it("should have valid HTML", async () => {
     // install the html validity check
     // html-validate pckage is installed
-    const props: Props = {
-      name: "test",
-      description: "test desc",
-      image: "test-image.png",
-    };
+
     const { html } = render(ProductItem, { props });
     expect(html()).toHTMLValidate();
   });
   describe("Behaviour", () => {
-    it("should emit an event when adding to cart", async () => {
+    it("should emit an 'add' event when button is clicked", async () => {
       // next up: how will I build and test the store?
-      // Also... how might one do this without sotre?... but... I dunno.
-      const props: Props = {
-        name: "test",
-        description: "test desc",
-        image: "test-image.png",
-      };
       const user = userEvent.setup();
-      const { findByRole } = render(ProductItem, { props });
+      const { findByRole, emitted } = render(ProductItem, { props });
       const button = await findByRole("button", { name: /add to cart/ });
       expect(button).toBeDefined();
-      //   await user.click
+      expect(emitted("add")).toBeUndefined();
+      await user.click(button);
+      expect(emitted("add").length).toBe(1);
+      console.log(emitted("add")[0]);
+      expect(emitted("add")[0]).toEqual([{ id: "1234-5678-123" }]);
     });
   });
 });
