@@ -8,7 +8,9 @@
     />
     <p>{{ name }}</p>
     <p>{{ description }}</p>
-    <button>add to cart</button>
+    <button type="button" @click="() => handleAddToStore(id)">
+      add to cart
+    </button>
   </div>
 </template>
 
