@@ -8,17 +8,31 @@
     />
     <p>{{ name }}</p>
     <p>{{ description }}</p>
-    <button>add to cart</button>
+    <button type="button" @click="() => handleAddToStore(id)">
+      add to cart
+    </button>
   </div>
 </template>
 
 <script setup lang="ts">
+// import { useCartStore } from "@/stores/cart";
+
 export type Props = {
+  id: string;
   name: string;
   image: string;
   description: string;
 };
+
+// const store = useCartStore();
+const emit = defineEmits<{
+  add: [{ id: string }];
+}>();
 defineProps<Props>();
+
+const handleAddToStore = (id: string) => {
+  emit("add", { id });
+};
 </script>
 
 <style scoped></style>
