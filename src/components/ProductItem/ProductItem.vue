@@ -15,8 +15,6 @@
 </template>
 
 <script setup lang="ts">
-// import { useCartStore } from "@/stores/cart";
-
 export type Props = {
   id: string;
   name: string;
@@ -24,7 +22,6 @@ export type Props = {
   description: string;
 };
 
-// const store = useCartStore();
 const emit = defineEmits<{
   add: [{ id: string }];
 }>();
