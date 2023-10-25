@@ -6,6 +6,7 @@
       v-else
       @add="handleAddToCart"
       v-for="product in products.data"
+      :key="product.id"
       :id="product.id"
       :name="product.name"
       :image="product.image"

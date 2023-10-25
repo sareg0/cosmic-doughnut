@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
+import { RouterView } from "vue-router";
 import Logo from "@/components/MainLogo/MainLogo.vue";
 import { ref, watch } from "vue";
 type OrderType = "pickup" | "delivery";
