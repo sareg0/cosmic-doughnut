@@ -28,9 +28,6 @@ describe("ProductItem", () => {
       });
   });
   it("should have valid HTML", async () => {
-    // install the html validity check
-    // html-validate pckage is installed
-
     const { html } = render(ProductItem, { props });
     expect(html()).toHTMLValidate();
   });
