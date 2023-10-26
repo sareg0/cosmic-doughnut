@@ -15,7 +15,7 @@ const props: Props = {
 describe("ProductItem", () => {
   it("should be accessible", () => {
     // render the component and check against axe
-    const { container, debug } = render(ProductItem, { props });
+    const { container } = render(ProductItem, { props });
     axe
       .run(container)
       .then((results) => {

@@ -12,7 +12,7 @@ export const useCartStore = defineStore("cart", () => {
   const items = ref<CartType>([]);
 
   const getItemByID = computed(
-    () => (id: string) => items.value.find((i: CartItem) => i.id === id)
+    () => (id: string) => items.value.find((i: CartItem) => i.id === id),
   );
 
   const getTotalCount = computed(() => {

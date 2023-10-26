@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
-import Logo from "@/components/Logo/Logo.vue";
+import { RouterView } from "vue-router";
+import Logo from "@/components/MainLogo/MainLogo.vue";
 import { ref, watch } from "vue";
 type OrderType = "pickup" | "delivery";
 const orderType = ref<OrderType | undefined>();
-import { useCartStore } from "./stores/cart";
 
-const store = useCartStore();
 const handleOrderType = (value: OrderType) => {
   orderType.value = value;
 };
@@ -20,7 +18,6 @@ watch(orderType, (newValue, oldValue) => {
 <template>
   <header>
     <div style="width: 200px; height: 200px"><Logo /></div>
-    <h2>cart: {{ store.getTotalCount }}</h2>
   </header>
 
   <main class="wrapper">
@@ -39,8 +36,4 @@ watch(orderType, (newValue, oldValue) => {
   <RouterView />
 </template>
 
-<style scoped>
-.logo {
-  fill: aqua;
-}
-</style>
+<style scoped></style>
