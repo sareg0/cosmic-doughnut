@@ -48,8 +48,6 @@ onMounted(() => {
         name: "Cosmic Y",
         image: {
           src: "cosmicy-1.png",
-          height: 200,
-          width: 200,
         },
         description: "A description of Cosmic Y",
       },
@@ -58,8 +56,6 @@ onMounted(() => {
         name: "Cosmic Y",
         image: {
           src: "cosmicy-1.png",
-          height: 200,
-          width: 200,
         },
         description: "A description of Cosmic Y",
       },
@@ -68,8 +64,6 @@ onMounted(() => {
         name: "Cosmic Y",
         image: {
           src: "cosmicy-1.png",
-          height: 200,
-          width: 200,
         },
         description: "A description of Cosmic Y",
       },
@@ -78,8 +72,6 @@ onMounted(() => {
         name: "Cosmic Y",
         image: {
           src: "cosmicy-1.png",
-          height: 200,
-          width: 200,
         },
         description: "A description of Cosmic Y",
       },

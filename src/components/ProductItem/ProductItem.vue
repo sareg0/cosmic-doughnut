@@ -1,12 +1,7 @@
 <template>
   <ProductItemSkeleton>
     <template #image>
-      <img
-        :src="`src/assets/product-images/${image.src}`"
-        alt=""
-        :height="image.height"
-        :width="image.width"
-      />
+      <slot name="image" :image="image" />
     </template>
     <template #name>
       <p>{{ name }}</p>
@@ -29,12 +24,13 @@ export type Props = {
   name: string;
   image: {
     src: string;
-    height: number;
-    width: number;
   };
   description: string;
 };
 
+defineSlots<{
+  image(props: { image: Props["image"] }): any;
+}>();
 const emit = defineEmits<{
   add: [{ id: string }];
 }>();

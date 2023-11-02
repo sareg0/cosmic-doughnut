@@ -24,7 +24,16 @@
       :name="item.name"
       :image="item.image"
       :description="item.description"
-    />
+    >
+      <template #image="{ image }">
+        <img
+          :src="`src/assets/product-images/${image.src}`"
+          alt=""
+          height="200"
+          width="200"
+        />
+      </template>
+    </ProductItem>
   </div>
 </template>
 
