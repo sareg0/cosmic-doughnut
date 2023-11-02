@@ -9,7 +9,9 @@ const props: Props = {
   id: "1234-5678-123",
   name: "test",
   description: "test desc",
-  image: "test-image.png",
+  image: {
+    src: "test-image.png",
+  },
 };
 
 describe("ProductItem", () => {

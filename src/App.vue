@@ -3,11 +3,14 @@ import { RouterView } from "vue-router";
 import Logo from "@/components/MainLogo/MainLogo.vue";
 import { ref, watch } from "vue";
 type OrderType = "pickup" | "delivery";
+import { useCartStore } from "@/stores/cart";
 const orderType = ref<OrderType | undefined>();
 
 const handleOrderType = (value: OrderType) => {
   orderType.value = value;
 };
+
+const store = useCartStore();
 
 watch(orderType, (newValue, oldValue) => {
   console.log("old orderType:", oldValue);
@@ -21,6 +24,7 @@ watch(orderType, (newValue, oldValue) => {
   </header>
 
   <main class="wrapper">
+    <h2>cart: {{ store.getTotalCount }}</h2>
     <button @click="handleOrderType('pickup')">Pick-up</button>
     <button @click="handleOrderType('delivery')">Delivery</button>
     <section id="order-details">
