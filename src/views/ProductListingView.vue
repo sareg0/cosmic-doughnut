@@ -1,4 +1,5 @@
 <template>
+  <RouterLink to="/cart">edit cart</RouterLink>
   <div class="listing-grid">
     <ProductItemList
       @add-to-cart="(e) => handleAddToCart(e.id)"

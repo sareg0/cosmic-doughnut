@@ -39,6 +39,7 @@ describe("Cart Store", () => {
     });
   });
   describe("Actions", () => {
+    // change these to describes
     it("adds a given product to the cart", () => {
       const cart = useCartStore();
       expect(cart.items.length).toBe(0);
@@ -46,7 +47,7 @@ describe("Cart Store", () => {
       expect(cart.items.length).toBe(1);
       cart.addToCart("1234-5678");
     });
-    it("incremenets an item that is already in the cart", () => {
+    it("increments an item that is already in the cart", () => {
       const cart = useCartStore();
       expect(cart.items.length).toBe(0);
       const uuid = "1234-5678";
@@ -54,6 +55,21 @@ describe("Cart Store", () => {
       cart.addToCart(uuid);
       expect(cart.items.length).toBe(1);
       expect(cart.getItemByID(uuid)).toMatchObject({ count: 2 });
+    });
+    it("remove an item that is in the cart", () => {
+      const cart = useCartStore();
+      expect(cart.items.length).toBe(0);
+      const uuid = "1234-5678";
+      cart.addToCart(uuid);
+      cart.addToCart(uuid);
+      expect(cart.items.length).toBe(1);
+      expect(cart.getItemByID(uuid)).toMatchObject({ count: 2 });
+      cart.removeFromCart(uuid);
+      expect(cart.getItemByID(uuid)).toMatchObject({ count: 1 });
+      cart.removeFromCart(uuid);
+      expect(cart.getItemByID(uuid)).toMatchObject({ count: 0 });
+      cart.removeFromCart(uuid);
+      expect(cart.getItemByID(uuid)).toMatchObject({ count: 0 });
     });
   });
 });

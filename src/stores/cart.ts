@@ -12,7 +12,7 @@ export const useCartStore = defineStore("cart", () => {
   const items = ref<CartType>([]);
 
   const getItemByID = computed(
-    () => (id: string) => items.value.find((i: CartItem) => i.id === id),
+    () => (id: string) => items.value.find((i: CartItem) => i.id === id)
   );
 
   const getTotalCount = computed(() => {
@@ -28,5 +28,12 @@ export const useCartStore = defineStore("cart", () => {
     }
   }
 
-  return { items, getItemByID, getTotalCount, addToCart };
+  function removeFromCart(itemId: string) {
+    const itemToRemove = getItemByID.value(itemId);
+    if (itemToRemove) {
+      itemToRemove.count > 0 && itemToRemove.count--;
+    }
+  }
+
+  return { items, getItemByID, getTotalCount, addToCart, removeFromCart };
 });
