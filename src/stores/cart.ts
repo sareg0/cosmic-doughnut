@@ -19,7 +19,7 @@ export const useCartStore = defineStore("cart", () => {
     return items.value.reduce((prev, current) => prev + current.count, 0);
   });
 
-  function addToCart(newItemId: string) {
+  function addItemOrIncreaseCount(newItemId: string) {
     const itemToAdd = getItemByID.value(newItemId);
     if (itemToAdd) {
       itemToAdd.count++;
@@ -28,12 +28,33 @@ export const useCartStore = defineStore("cart", () => {
     }
   }
 
-  function removeFromCart(itemId: string) {
+  function decreaseItemCount(itemId: string) {
     const itemToRemove = getItemByID.value(itemId);
     if (itemToRemove) {
       itemToRemove.count > 0 && itemToRemove.count--;
     }
   }
 
-  return { items, getItemByID, getTotalCount, addToCart, removeFromCart };
+  function removeItem(itemId: string) {
+    const itemToRemove = getItemByID.value(itemId);
+    if (itemToRemove) {
+      const index = items.value.findIndex(
+        (item) => itemToRemove.id === item.id
+      );
+      if (index >= 0) {
+        // is this okay? Modifying the original array? I think so.
+        // at least in Vue land
+        items.value.splice(index, 1);
+      }
+    }
+  }
+
+  return {
+    items,
+    getItemByID,
+    getTotalCount,
+    addItemOrIncreaseCount,
+    decreaseItemCount,
+    removeItem,
+  };
 });

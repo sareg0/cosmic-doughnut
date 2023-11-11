@@ -2,9 +2,13 @@
   <div>I am a cart page</div>
   <div v-for="item in cart.items" :key="item.id">
     <pre>{{ item }}</pre>
-    <button type="button" @click="() => handleRemoveFromCart(item.id)">
-      remove from cart
+    <button type="button" @click="() => handleIncrease(item.id)">
+      increase
     </button>
+    <button type="button" @click="() => handleDecrease(item.id)">
+      decrease
+    </button>
+    <button type="button" @click="() => handleRemove(item.id)">remove</button>
   </div>
 </template>
 
@@ -13,8 +17,14 @@ import { useCartStore } from "@/stores/cart";
 
 const cart = useCartStore();
 
-const handleRemoveFromCart = (itemId: string) => {
-  cart.removeFromCart(itemId);
+const handleRemove = (itemId: string) => {
+  cart.removeItem(itemId);
+};
+const handleDecrease = (itemId: string) => {
+  cart.decreaseItemCount(itemId);
+};
+const handleIncrease = (itemId: string) => {
+  cart.addItemOrIncreaseCount(itemId);
 };
 </script>
 
