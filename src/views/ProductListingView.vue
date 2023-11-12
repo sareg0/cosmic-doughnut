@@ -1,7 +1,8 @@
 <template>
+  <RouterLink to="/cart">edit cart</RouterLink>
   <div class="listing-grid">
     <ProductItemList
-      @add-to-cart="(e) => handleAddToCart(e.id)"
+      @add-to-cart="(e) => handleaddItemOrIncreaseCount(e.id)"
       :items="products.data"
       :loading="isLoading"
       :error="hasError"
@@ -17,8 +18,8 @@ import { type Props as ProductItemType } from "@/components/ProductItem/ProductI
 
 const store = useCartStore();
 
-const handleAddToCart = (id: string) => {
-  store.addToCart(id);
+const handleaddItemOrIncreaseCount = (id: string) => {
+  store.addItemOrIncreaseCount(id);
 };
 
 const products = ref<{

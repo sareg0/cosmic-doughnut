@@ -19,7 +19,7 @@ describe("Cart Store", () => {
         const cart = useCartStore();
         expect(cart.getItemByID(uuid_one)).toBeUndefined();
         expect(cart.getItemByID(uuid_two)).toBeUndefined();
-        cart.addToCart(uuid_one);
+        cart.addItemOrIncreaseCount(uuid_one);
         expect(cart.getItemByID(uuid_one)).toMatchObject({
           id: uuid_one,
           count: 1,
@@ -30,30 +30,68 @@ describe("Cart Store", () => {
     describe("getTotalCount", () => {
       it("returns the total count of the items in the cart", () => {
         const cart = useCartStore();
-        cart.addToCart(uuid_one);
-        cart.addToCart(uuid_one);
-        cart.addToCart(uuid_two);
+        cart.addItemOrIncreaseCount(uuid_one);
+        cart.addItemOrIncreaseCount(uuid_one);
+        cart.addItemOrIncreaseCount(uuid_two);
         expect(cart.items.length).toBe(2);
         expect(cart.getTotalCount).toBe(3);
       });
     });
   });
   describe("Actions", () => {
+    // change these to describes
     it("adds a given product to the cart", () => {
       const cart = useCartStore();
       expect(cart.items.length).toBe(0);
-      cart.addToCart("1234-5678");
+      cart.addItemOrIncreaseCount("1234-5678");
       expect(cart.items.length).toBe(1);
-      cart.addToCart("1234-5678");
+      cart.addItemOrIncreaseCount("1234-5678");
     });
-    it("incremenets an item that is already in the cart", () => {
+    it("increments an item that is already in the cart", () => {
       const cart = useCartStore();
       expect(cart.items.length).toBe(0);
       const uuid = "1234-5678";
-      cart.addToCart(uuid);
-      cart.addToCart(uuid);
+      cart.addItemOrIncreaseCount(uuid);
+      cart.addItemOrIncreaseCount(uuid);
       expect(cart.items.length).toBe(1);
       expect(cart.getItemByID(uuid)).toMatchObject({ count: 2 });
+    });
+    it("remove an item that is in the cart", () => {
+      const cart = useCartStore();
+      expect(cart.items.length).toBe(0);
+      const uuid = "1234-5678";
+      cart.addItemOrIncreaseCount(uuid);
+      cart.addItemOrIncreaseCount(uuid);
+      expect(cart.items.length).toBe(1);
+      expect(cart.getItemByID(uuid)).toMatchObject({ count: 2 });
+      cart.decreaseItemCount(uuid);
+      expect(cart.getItemByID(uuid)).toMatchObject({ count: 1 });
+      cart.decreaseItemCount(uuid);
+      expect(cart.getItemByID(uuid)).toMatchObject({ count: 0 });
+      cart.decreaseItemCount(uuid);
+      expect(cart.getItemByID(uuid)).toMatchObject({ count: 0 });
+    });
+    it("deletes an item that is in the cart", () => {
+      const cart = useCartStore();
+      expect(cart.items.length).toBe(0);
+      const uuidOne = "226e4172-8d35-4075-bbea-9e730d618d21";
+      const uuidTwo = "a9aef20f-1893-4613-af15-d62fa677a5bb";
+
+      cart.addItemOrIncreaseCount(uuidOne);
+      cart.addItemOrIncreaseCount(uuidOne);
+      cart.addItemOrIncreaseCount(uuidTwo);
+
+      expect(cart.items.length).toBe(2);
+      expect(cart.getItemByID(uuidOne)).toMatchObject({ count: 2 });
+      expect(cart.getItemByID(uuidTwo)).toMatchObject({ count: 1 });
+
+      cart.removeItem(uuidTwo);
+      expect(cart.getItemByID(uuidTwo)).toBeUndefined();
+      expect(cart.items.length).toBe(1);
+
+      cart.removeItem(uuidOne);
+      expect(cart.items.length).toBe(0);
+      expect(cart.getItemByID(uuidOne)).toBeUndefined();
     });
   });
 });
